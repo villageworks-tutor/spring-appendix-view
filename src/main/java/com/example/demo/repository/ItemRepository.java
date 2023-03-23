@@ -17,6 +17,13 @@ public interface ItemRepository {
 	 * すべての商品のリストを取得する
 	 * @return すべての商品を格納したリスト
 	 */
-	List<Item> findAll();
+	// List<Item> findAll();
+
+	/**
+	 * キーワードで商品を検索する
+	 * @param keyword 検索キーワード
+	 * @return きーわーどｎ
+	 */
+	List<Item> findByKeyword(String keyword);
 
 }
