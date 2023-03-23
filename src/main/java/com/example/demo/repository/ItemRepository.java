@@ -26,4 +26,10 @@ public interface ItemRepository {
 	 */
 	List<Item> findByKeyword(String keyword);
 
+	/**
+	 * 商品を登録する
+	 * @param item 登録する商品のインスタンス
+	 */
+	void insert(Item item);
+
 }

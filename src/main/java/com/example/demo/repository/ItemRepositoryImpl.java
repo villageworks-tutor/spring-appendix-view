@@ -54,4 +54,18 @@ public class ItemRepositoryImpl implements ItemRepository {
 		return list;
 	}
 
+	@Override
+	public void insert(Item item) {
+		// 実行するSQLの設定
+		String sql = "INSERT INTO items (category_id, name, price) VALUES (:categoryId, :name, :price)";
+		// SQL実行オブジェクトの取得
+		Query query = entityManager.createNativeQuery(sql, Item.class);
+		// パラメータバインディング
+		query.setParameter("categoryId", item.getCategoryId());
+		query.setParameter("name", item.getName());
+		query.setParameter("price", item.getPrice());
+		// SQLの実行
+		query.executeUpdate();
+	}
+
 }
