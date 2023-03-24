@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Item;
+import com.example.demo.entity.ItemView;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -66,6 +67,28 @@ public class ItemRepositoryImpl implements ItemRepository {
 		query.setParameter("price", item.getPrice());
 		// SQLの実行
 		query.executeUpdate();
+	}
+
+	@Override
+	public List<ItemView> findView(String keyword) {
+		// 実行するSQLの設定
+		String sql = "SELECT * FROM v_items";
+		if (!(keyword == null || keyword.isEmpty())) {
+			// キーワードが指定されている場合
+			sql += " WHERE name LIKE :name";
+		}
+		sql += " ORDER BY id";
+		// SQL実行オブジェクトの取得
+		Query query = entityManager.createNativeQuery(sql, ItemView.class);
+		// パラメータバインディング
+		if (!(keyword == null || keyword.isEmpty())) {
+			query.setParameter("name", "%" + keyword + "%");
+		}
+		// SQLの実行
+		@SuppressWarnings("unchecked")
+		List<ItemView> list = query.getResultList();
+		// SQLの結果を返却
+		return list;
 	}
 
 }
