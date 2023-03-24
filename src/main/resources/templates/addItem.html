@@ -12,8 +12,18 @@
 			<tr>
 				<th>カテゴリーID</th>
 				<td>
+					<select name="categoryId">
+						<option 
+							th:each="category:${categories}" 
+							th:value="${category.id}" 
+							th:text="${category.name}"></option>
+					</select>
+				</td>
+				<!-- 
+				<td>
 					<input type="text" name="categoryId" />
 				</td>
+				-->
 			</tr>
 			<tr>
 				<th>商品名</th>
@@ -26,5 +36,7 @@
 		</table>
 		<button>登録</button>
 	</form>
+	<a href="/items">商品一覧へ</a><br />
+	<a href="/items/view">商品一覧・改へ</a>
 </body>
 </html>

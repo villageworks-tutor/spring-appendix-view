@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Category;
 import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
 
@@ -23,6 +24,9 @@ public class ItemController {
 
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 
 	/**
 	 * 商品一覧を表示する
@@ -34,7 +38,7 @@ public class ItemController {
 			Model model) {
 		// すべての商品のリストを取得
 		List<Item> list = this.itemRepository.findByKeyword(keyword);
-		// 取得した商品リストをリクエストスコープに登録
+		// 取得した商品リストと商品カテゴリーリストをリクエストスコープに登録
 		model.addAttribute("items", list);
 		// 遷移先ファイル名を返却
 		return "items";
@@ -45,7 +49,11 @@ public class ItemController {
 	 * @return 商品登録画面ファイル名
 	 */
 	@GetMapping("/items/add")
-	public String addItem() {
+	public String addItem(Model model) {
+		// すべての商品カテゴリを取得
+		List<Category> list = categoryRepository.findAll();
+		// 取得した商品リストと商品カテゴリーリストをリクエストスコープに登録
+		model.addAttribute("categories", list);
 		return "addItem";
 	}
 	
