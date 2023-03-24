@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.Item;
+import com.example.demo.entity.ItemView;
 
 /**
  * itemsテーブルにアクセスするインタフェース
@@ -31,5 +32,12 @@ public interface ItemRepository {
 	 * @param item 登録する商品のインスタンス
 	 */
 	void insert(Item item);
+	
+	/**
+	 * カテゴリー付き商品一覧を検索する
+	 * @param keyword
+	 * @return
+	 */
+	List<ItemView> findView(String keyword);
 
 }
